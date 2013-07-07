@@ -1,0 +1,6 @@
+Texr
+====
+
+This repo holds python implementation of texr.net driver ipc client.
+
+To use this code you need driver binary running on your host
