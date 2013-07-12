@@ -1,13 +1,27 @@
 from app import app
-from models import User, Call
+from models import User, Call, History
 
 @app.cmd("cert.ok")
 def cert_ok(code, name=None):
     if code == 0:
         print 'logged in ok', name
+        app.emit("login")
         app.online(True)
     else:
         app.interactive_login()
+
+@app.event("login")
+def fetch_history():
+    app.fetch_history()
+
+@app.cmd("hist.res")
+def history_res(code, idx=None, data=None):
+    if code != 0:
+        print 'no history'
+    else:
+        history = map(History._make, data)
+        app.add_history(history)
+        app.fetch_history()
 
 @app.cmd("sip.reg")
 def reg_state(state):

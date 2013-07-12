@@ -55,3 +55,6 @@ class IPC(object):
         assert isinstance(op, int)
 
         self.send("sip.call.control", cid, op)
+
+    def fetch_history(self, flag):
+        self.send("hist.fetch", flag)
