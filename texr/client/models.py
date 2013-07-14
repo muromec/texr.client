@@ -54,3 +54,9 @@ class History(HistoryTuple):
     def time_str(self):
         ts = time.localtime(self.ts)
         return time.asctime(ts)
+
+ContactTuple = namedtuple("Contact", ['login', 'name', 'phone'])
+
+class Contact(ContactTuple):
+    def __repr__(self):
+        return '<C: %s (%s)>' %(self.name, self.login)

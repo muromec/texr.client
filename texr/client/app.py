@@ -8,6 +8,7 @@ class Texr(object):
         self.event_handlers = {}
         self.calls = {}
         self.history = None
+        self.contact = None
 
     def cmd(self, name):
         def cmd(f):
@@ -68,6 +69,14 @@ class Texr(object):
         self.history.extend(data)
         for entry in data:
             print entry
+
+    def add_contacts(self, data):
+        print 'loaded c %d' %(len(data),)
+        if self.contact is None:
+            self.contact = {}
+
+        for entry in data:
+            self.contact[entry.login] = entry
 
     def emit(self, name, *args):
         handlers = self.event_handlers.get(name, [])

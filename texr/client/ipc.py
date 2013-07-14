@@ -58,3 +58,6 @@ class IPC(object):
 
     def fetch_history(self, flag):
         self.send("hist.fetch", flag)
+
+    def fetch_contacts(self,):
+        self.send("contacts.fetch",)

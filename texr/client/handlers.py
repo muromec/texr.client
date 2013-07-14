@@ -1,5 +1,5 @@
 from app import app
-from models import User, Call, History
+from models import User, Call, History, Contact
 
 @app.cmd("cert.ok")
 def cert_ok(code, name=None):
@@ -22,6 +22,18 @@ def history_res(code, idx=None, data=None):
         history = map(History._make, data)
         app.add_history(history)
         app.fetch_history()
+
+@app.event("login")
+def fetch_contacts():
+    app.ipc.fetch_contacts()
+
+@app.cmd("contacts.res")
+def contacts_res(code, data=None):
+    if (code != 0) or not data:
+        print 'no contacts'
+    else:
+        contacts = map(Contact._make, data)
+        app.add_contacts(contacts)
 
 @app.cmd("sip.reg")
 def reg_state(state):
