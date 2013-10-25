@@ -1,8 +1,9 @@
-from ipc import IPC
+from connector import Connector
 
 class Texr(object):
     def __init__(self):
-        self.ipc = IPC()
+        self.connector = Connector()
+        self.ipc = self.connector.ipc
         self.ipc.add_handler(self.on_ipc)
         self.commands = {}
         self.event_handlers = {}
@@ -34,7 +35,7 @@ class Texr(object):
         handler(*args)
 
     def run(self):
-        self.ipc.loop()
+        self.connector.run()
 
     def me(self, login):
         self.ipc.set_me(login)
